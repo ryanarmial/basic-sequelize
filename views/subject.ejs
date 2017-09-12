@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <%- include part/css %>
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <%- include part/menu %>
+    <div class="row">
+      <div class="col-md-2 text-top col-md-offset-0">
+        <form class="form-inline" action="/subjects" method="post">
+          <label>Subject Name</label>
+          <input type="text" name="subject_name" class="form-control" placeholder="ex: Math">
+          <br><br>
+
+          <button type="submit" name="button" class="btn btn-info"><span class="glyphicon glyphicon-send"></span> &nbsp; Add Subject</button>
+        </form>
+      </div>
+      <div class="col-md-10">
+        <table class="table table-stripped">
+          <tr>
+            <td>No</td>
+            <td>Sub ID</td>
+            <td>Subject Name</td>
+            <td>Teachers</td>
+            <td>Students</td>
+            <td>Action</td>
+          </tr>
+          <% let no =1; dataSubject.forEach(data => { %>
+            <tr>
+              <td><%= no++ %></td>
+              <td><%= data.id %></td>
+              <td><%= data.subject_name  %></td>
+              <td>
+                <% if(data.Teachers.length == 0){ %>
+                      -
+                <% } else { %>
+                  <ul>
+                    <% data.Teachers.forEach(guru => { %>
+                      <li><%= guru.first_name + ' ' + guru.last_name %></li>
+                    <% }) %>
+                  </ul>
+                <% } %>
+              </td>
+              <td>
+                <a href="/subjects/<%= data.id %>/enrolledstudents">
+                  <!-- <button type="button" name="button" class="btn btn-success"> -->
+                    <span class="glyphicon glyphicon-education"></span> Enrolled Students
+                  <!-- </button> -->
+                </a>
+              </td>
+              <td>
+                <a href="/subjects/edit/<%= data.id %>">
+                  <!-- <button type="button" name="button" class="btn btn-warning"> -->
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                  <!-- </button> -->
+                </a>
+                <a href="/subjects/delete/<%= data.id %>" onclick="return confirm('Yakin mau delete Mata Pelajaran: \n<%= data.subject_name  %>?\n Klik cancel untuk membatalkan')">
+                  <!-- <button type="button" name="button" class="btn btn-danger"> -->
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                  <!-- </button> -->
+                </a>
+              </td>
+            </tr>
+          <% })%>
+
+        </table>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>

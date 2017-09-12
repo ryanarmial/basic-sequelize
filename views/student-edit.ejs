@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <%- include part/css %>
+    <title></title>
+  </head>
+  <body>
+    <%- include part/menu %>
+    <center>
+      <%if(pesan) { %>
+        <h4 style="color:red"><%= pesan%></h4>
+      <%}%>
+    </center>
+    <div class="col-md-2 col-md-offset-5">
+
+
+      <form class="form-inline" action="/students/edit/<%= data.id %>" method="post">
+        <label>Firstname</label>
+        <input type="text" name="first_name" class="form-control" value="<%= data.first_name %>">
+        <label>Lastname</label>
+        <input type="text" name="last_name" class="form-control" value="<%= data.last_name %>">
+        <label>Email</label>
+        <input type="text" name="email" class="form-control" value="<%= data.email %>">
+        <br><br>
+
+        <button type="submit" name="button" class="btn btn-info"><span class="glyphicon glyphicon-send"></span> &nbsp; Edit Student</button>
+      </form>
+
+
+    </div>
+  </body>
+</html>

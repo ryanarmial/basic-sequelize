@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <%- include part/css %>
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <%- include part/menu %>
+    <div class="row">
+      <div class="col-md-2 text-top">
+        <form class="form-inline" action="/teachers" method="post">
+          <label>Firstname</label>
+          <input type="text" name="first_name" class="form-control" placeholder="first name">
+          <label>Lastname</label>
+          <input type="text" name="last_name" class="form-control" placeholder="last name">
+          <label>Email</label>
+          <input type="text" name="email" class="form-control" placeholder="email"><br>
+          <label>Subject</label><br>
+          <select class="form-control" name="SubjectId">
+            <% dataSubject.forEach( subject => { %>
+              <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+            <% }) %>
+          </select>
+          <br><br>
+
+          <button type="submit" name="button" class="btn btn-info"><span class="glyphicon glyphicon-send"></span> &nbsp; Add New Teacher</button>
+        </form>
+      </div>
+      <div class="col-md-10">
+        <table class="table table-striped">
+          <tr>
+            <td>No</td>
+            <td>ID</td>
+            <td>Teacher Name</td>
+            <td>Email</td>
+            <td>Subject</td>
+            <td>Action</td>
+          </tr>
+          <% let no =1; dataGuru.forEach(data => { %>
+            <tr>
+              <td><%= no++ %></td>
+              <td><%= data.id %></td>
+              <td><%= data.first_name + ' ' + data.last_name  %></td>
+              <td><%= data.email %></td>
+              <td>
+                <% if(data.SubjectId != undefined){ %>
+                <%= data.Subject.subject_name %>
+                <%} else { %>
+                  unassign
+                <%}%>
+              </td>
+              <td>
+                <a href="/teachers/edit/<%= data.id %>">
+                    <span class="glyphicon glyphicon-edit"></span> Edit
+                </a>
+                <a href="/teachers/delete/<%= data.id %>" onclick="return confirm('Yakin mau delete Guru: \n<%= data.first_name + ' ' + data.last_name  %>?\n Klik cancel untuk membatalkan')">
+                  <span class="glyphicon glyphicon-trash"></span> Delete
+                </a>
+              </td>
+            </tr>
+          <% })%>
+
+        </table>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
